@@ -30,7 +30,7 @@ def home():
             results.append({
                 "resume": resumes[i],
                 "score": round(score * 100, 2),
-                "status": "Selected ✅" if score > 0.3 else "Not Selected ❌"
+                "status": "Selected" if score > 0.3 else "Not Selected"
             })
 
         best_index = scores.argmax()
@@ -52,7 +52,7 @@ def home():
         history=history
     )
 
-# 🔥 Clear history route
+#Clear history route
 @app.route("/clear")
 def clear_history():
     global history
