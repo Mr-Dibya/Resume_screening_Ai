@@ -1,0 +1,149 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Screening AI</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #333;
+        }
+
+        .container {
+            width: 60%;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #00c9a7;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #00a78e;
+        }
+
+        .result {
+            background: rgba(255,255,255,0.2);
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .top {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0,255,150,0.2);
+            border-left: 5px solid #00ffae;
+            border-radius: 8px;
+        }
+
+        .history {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
+
+        .clear-btn {
+            background: #ff4d4d;
+            margin-top: 10px;
+        }
+
+        .clear-btn:hover {
+            background: #cc0000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🚀 Resume Screening AI</h2>
+
+    <form method="POST">
+        <label>Job Description:</label>
+        <textarea name="job" rows="4" required></textarea>
+
+        <label>Resumes (one per line):</label>
+        <textarea name="resumes" rows="6" required></textarea>
+
+        <button type="submit">Analyze Resumes</button>
+    </form>
+
+    {% if results %}
+    <h3>📊 Results:</h3>
+    {% for r in results %}
+        <div class="result">
+            <b>Resume:</b> {{ r.resume }} <br>
+            <b>Score:</b> {{ r.score }}% <br>
+            <b>Status:</b> {{ r.status }}
+        </div>
+    {% endfor %}
+
+    <div class="top">
+        <h3>🏆 Top Candidate</h3>
+        <p><b>{{ top_candidate }}</b></p>
+        <p>Match Score: {{ top_score }}%</p>
+    </div>
+    {% endif %}
+
+    <div class="history">
+        <h3>📜 History</h3>
+
+        {% if history %}
+            {% for h in history %}
+                <div class="result">
+                    <b>Job:</b> {{ h.job }} <br>
+                    <b>Top Candidate:</b> {{ h.top_candidate }} <br>
+                    <b>Score:</b> {{ h.score }}%
+                </div>
+            {% endfor %}
+
+            <a href="/clear">
+                <button class="clear-btn">Clear History</button>
+            </a>
+        {% else %}
+            <p>No history yet.</p>
+        {% endif %}
+    </div>
+
+</div>
+
+</body>
+</html>
